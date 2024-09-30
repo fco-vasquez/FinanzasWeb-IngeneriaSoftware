@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Perfil</title>
+    <link rel="stylesheet" href="{% static 'css/aper.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul class="nav-links">
+            <!--<li><a href="#home" class="logo">City</a></li>-->
+                <li><a href="">Ingreso</a></li>
+                <li><a href="">Detalles</a></li>
+                <li><a href="">Inversiones</a></li>
+                <li><a href="">Contacto</a></li>
+            </ul>
+        </nav>
+
+        <nav>
+            <ul class="nav-right">
+                {% if user.username %}
+                    <li><a href="/actualizar/">{{ user.first_name }} {{user.last_name}}</a></li>
+                    <form action="{% url 'logout' %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn salir" >Salir</button>
+                    </form>
+                {% else %}
+                        <li><a href="/registro-login/" class="btn login" >Iniciar sesion</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+
+        
+    </header>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="message {{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <br>
+        <div class="profile-image-container">
+            {% if perfil.foto_perfil %}
+            <img src="{{ perfil.foto_perfil.url }}" alt="Foto de perfil">
+            {% else %}
+            <p>No hay foto de perfil disponible.</p>
+            {% endif %}
+        </div>
+    <br>
+
+    <div class="container">
+        <form method="post" enctype="multipart/form-data" class="form">
+            {% csrf_token %}
+            <div class="form-group">
+                <center><h2>Datos del Perfil</h2></center>
+
+                <label for="telefono">Teléfono</label>
+                {{ perfil_form.telefono }}
+                <div><br></div>
+                
+                <label for="direccion">Dirección</label>
+                {{ perfil_form.direccion }}
+                <div><br></div>
+                
+                <label for="edad">Edad</label>
+                {{ perfil_form.edad }}
+                <div><br></div>
+
+
+                <label for="fechaNacimiento">Fecha de nacimiento</label>
+                {{ perfil_form.fecha_nacimiento }}
+                <div><br></div>
+
+                <label for="departamento">Departamento</label>
+                {{ perfil_form.departamento }}
+                <div><br></div>
+
+                <label for="genero">Genero</label>
+                {{ perfil_form.genero }}
+                <div><br></div>
+
+                <!-- este es el formulario completo de una
+                {{ perfil_form.as_p }} -->
+            </div>
+            <div class="form-group">
+                <h2>Foto de Perfil</h2>
+                {{ foto_form.as_p }}
+            </div>
+            
+            <button type="submit" class="submit-btn">Guardar Cambios</button>
+            <br>
+            <div class="boton">
+                <li><a href="/" class="home-btn" >Inicio</a></li>
+            </div>
+        </form>
+    </div>
+
+    <script src="{% static 'js/aper.js' %}"></script>
+    <script src="{% static 'js/msj.js' %}"></script>
+</body>
+</html>
+

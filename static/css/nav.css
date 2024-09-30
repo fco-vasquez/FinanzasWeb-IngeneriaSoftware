@@ -1,0 +1,146 @@
+header {
+    background: #333;
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* nav botones */
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.nav-links li {
+    margin-right: 15px;
+}
+
+.nav-links li:last-child {
+    margin-right: 0;
+}
+
+.nav-links li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* nav 2 login registro */
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.logo {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+}
+.nav-right li a {
+    color: #f4f4f4;
+    text-decoration: none;
+    font-weight: bold;
+    list-style: none;
+
+}
+
+ul{
+    list-style: none;
+}
+
+.btn.login {
+    background-color: #2e9747; /* Color verde para "Iniciar Sesión" */
+}
+
+.btn.register {
+    background-color: #007bff; /* Color azul para "Registrarse" */
+}
+
+.btn.salir {
+    background-color: #cf0a25; /* Color azul para "Registrarse" */
+    margin-left: 14px;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+
+.btn {
+    background: #555;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+
+
+
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-right {
+        flex-direction: column;
+        align-items: center; 
+        margin-top: 10px;
+    }
+
+    .nav-right li {
+        margin: 10px 0;
+        text-align: center; 
+    }
+
+    .btn {
+        margin-left: 0; /* Quitamos el margen izquierdo */
+        margin-right: 30px;
+        margin-top: 10px;
+        margin-left: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .nav-links {
+        flex-direction: column;
+    }
+
+    .nav-links li {
+        margin: 10px 0;
+        
+    }
+
+    .nav-links {
+        flex-direction: column;
+    }
+
+    .nav-links li {
+        margin: 10px 0;
+        margin-left: 15px;
+    }
+}
+
+
+                

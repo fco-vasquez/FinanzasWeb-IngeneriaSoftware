@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/users.css' %}">
+    <title>users</title>
+</head>
+
+
+<body>
+    <div class="boton">
+        <li><a href="/" class="btn login" >Inicio</a></li>
+    </div>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form method="post" id="registerForm" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h2>Registro</h2>
+                {{ form.non_field_errors }}
+                {{ form.username.errors }}
+                {{ form.username }}
+                
+                {{ form.first_name.errors }}
+                {{ form.first_name }}
+                
+                {{ form.last_name.errors }}
+                {{ form.last_name }}
+                
+                {{ form.email.errors }}
+                {{ form.email }}
+                
+                {{ form.password1.errors }}
+                {{ form.password1 }}
+                
+                {{ form.password2.errors }}
+                {{ form.password2 }}
+                
+                <input type="text" name="telefono" placeholder="Teléfono" maxlength="9" pattern="[0-9]+" />
+                <input type="text" name="direccion" placeholder="Direccion"/>
+                <input type="text" name="edad" placeholder="Edad" maxlength="2" pattern="[0-9]+"/>
+                <div>
+                    <input type="date" name="fecha_nacimiento"/>
+                
+                {% if lista_generos %}
+                <select name="genero" required>
+                    <option value="" disabled selected>Selecciona un género</option>
+                    {% for val, nom in lista_generos %}
+                    <option value="{{ val }}">{{ nom }}</option>
+                    {% endfor %}
+                </select>
+                </div>
+                {% else %}
+                <p>No hay géneros disponibles.</p>
+                {% endif %}
+                <br>
+                 <div>
+                    <input id="seleccionarA" type="file" name="foto_perfil" accept="image/*">
+                </div>
+                <button type="submit" name="register">Registrarse</button>
+                
+            </form>
+            <button class="ghost" id="signIn">Iniciar sesión</button>
+        </div>
+
+        <div class="form-container sign-in-container">
+            <form method="post" id="loginForm">
+                {% csrf_token %}
+                <h2>Iniciar sesión</h2>
+                {{ login_form.non_field_errors }}
+                {{ login_form.username.errors }}
+                {{ login_form.username }}
+                
+                {{ login_form.password.errors }}
+                {{ login_form.password }}
+                <div>
+                    <button type="submit" name="login">Iniciar sesión</button>
+                </div>
+            </form>
+            {% if msg %}
+            <p class="alert alert-danger">{{ msg }}</p>
+            {% endif %}
+            <div>
+                <button class="ghost" id="signUp">Registrarse</button>
+            </div>
+            <ul>
+                <li>
+                    <a href="{% url 'resetear_password' %}">¿Olvidaste tu contraseña?</a>
+                </li>
+            </ul>            
+        </div>
+
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h3>¿Ya tienes una cuenta?</h3>
+                    <p>Inicia sesión con tu cuenta existente</p>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <center><h3>¿Nuevo aquí?</h3></center>
+                    <p>Regístrate y comienza tu viaje con nosotros</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/users.js' %}"></script>
+</body>
+
+
+
+</html>

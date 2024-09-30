@@ -1,0 +1,151 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Principal</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+    
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="nav-links">
+            <!--<li><a href="#home" class="logo">City</a></li>-->
+                <li><a href="/">Inicio</a></li>
+                <li><a href="#about">Sobre Nosotros</a></li>
+                <li><a href="#services">Servicios</a></li>
+                <li><a href="#contact">Contacto</a></li>
+            </ul>
+        </nav>
+
+        <nav>
+            <ul class="nav-right">
+                {% if user.username %}
+                    <li><a href="/actualizar/">{{ user.first_name }} {{user.last_name}}</a></li>
+                    <form action="{% url 'logout' %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn salir" >Salir</button>
+                    </form>
+                {% else %}
+                        <li><a href="/registro-login/" class="btn login" >Iniciar sesion</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+
+        
+    </header>
+
+    
+
+    <section id="home" class="hero-section">
+        <div class="hero-content">
+            <h1>Aprende a Invertir con Nosotros</h1>
+            <p>Compara las distintas tazas de interes y logra el control de tus gastos</p>
+            <a href="#about" class="btn">Saber Más</a>
+        </div>
+    </section>
+
+    <section>
+        {% block content %}
+        <!-- Contenido dinámico -->
+        <h1>ESTE ES TU MOMENTO PARA COMENZAR A INVERTIR</h1>
+    
+        <article>
+            <div>
+                <h4>Por qué es importante invertir?</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa delectus ipsam
+                    deleniti optio commodi necessitatibus doloremque,
+                    nam molestias earum facere, cupiditate praesentium,
+                    voluptate iure nemo eveniet eum amet natus quod.
+                </p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa delectus ipsam
+                    deleniti optio commodi necessitatibus doloremque,
+                    nam molestias earum facere, cupiditate praesentium,
+                    voluptate iure nemo eveniet eum amet natus quod.
+                </p>
+            </div>
+            <div>
+                <img src="imgs/pexels-tima-miroshnichenko-6694543-768x512.jpg" alt="">
+            </div>
+        </article>
+    
+        <article>
+            <div>
+                <h4>Para qué sirve invertir?</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa delectus ipsam
+                    deleniti optio commodi necessitatibus doloremque,
+                    nam molestias earum facere, cupiditate praesentium,
+                    voluptate iure nemo eveniet eum amet natus quod.
+                </p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa delectus ipsam
+                    deleniti optio commodi necessitatibus doloremque,
+                    nam molestias earum facere, cupiditate praesentium,
+                    voluptate iure nemo eveniet eum amet natus quod.
+                </p>
+            </div>
+            <div>
+                <img src="{% static 'imgs/post-dudas-inversiones-verdes.jpg' %}" alt="">
+            </div>
+        </article>
+    
+        <article>
+            <div>
+                <h4>Dónde puedo invertir?</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa delectus ipsam
+                    deleniti optio commodi necessitatibus doloremque,
+                    nam molestias earum facere, cupiditate praesentium,
+                    voluptate iure nemo eveniet eum amet natus quod.
+                </p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa delectus ipsam
+                    deleniti optio commodi necessitatibus doloremque,
+                    nam molestias earum facere, cupiditate praesentium,
+                    voluptate iure nemo eveniet eum amet natus quod.
+                </p>
+            </div>
+            <div>
+                <img src="{% static 'imgs/Diplomado-en-Gestion-de-Inversiones.jpg' %}" alt="">
+            </div>
+        </article>
+        {% endblock %}
+    </section>
+
+    <section id="about">
+        <h2>Sobre Nosotros</h2>
+        <p>Descripción de la empresa y sus valores.</p>
+    </section>
+
+    <section id="services">
+        <h2>Nuestros Servicios</h2>
+        <div class="service-container">
+            <div class="service-box">
+                <h3>Servicio 1</h3>
+                <p>Descripción del servicio 1.</p>
+            </div>
+            <div class="service-box">
+                <h3>Servicio 2</h3>
+                <p>Descripción del servicio 2.</p>
+            </div>
+            <div class="service-box">
+                <h3>Servicio 3</h3>
+                <p>Descripción del servicio 3.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contacto</h2>
+        {% if user.username %}
+        <p>DETALLES SI EL USUARIO ESTA LOGEADO.</p>
+        {% else %}
+        <p>Detalles de contacto y formulario.</p>
+        {% endif %}
+    </section>
+
+    <footer>
+        <p>&copy; FinanzasWeb 2024. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
