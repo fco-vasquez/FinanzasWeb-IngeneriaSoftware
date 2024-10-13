@@ -7,6 +7,7 @@
     <title>Página Principal</title>
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
     <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contact.css' %}">
     
 </head>
 <body>
@@ -135,12 +136,31 @@
         </div>
     </section>
 
-    <section id="contact">
-        <h2>Contacto</h2>
+    <section id="contact" class="contact">
+        <h2>CONTACTATE CON NOSOTROS</h2>
         {% if user.username %}
         <p>DETALLES SI EL USUARIO ESTA LOGEADO.</p>
         {% else %}
-        <p>Detalles de contacto y formulario.</p>
+        <form>
+            <div class="input-box">
+                <input type="text" required
+                placeholder="Nombre y Apellido">
+            </div>
+            <div class="input-box">
+                <input type="email" required
+                placeholder="Correo electronico">
+            </div>
+            <div class="input-box">
+                <input type="text" required
+                placeholder="Asunto">
+            </div>
+            <div class="input-box">
+                <textarea cols="30" rows="10"
+                placeholder="Escribe tu mensaje"></textarea>
+            </div>
+            <button type="submit">Enviar Mensaje</button>
+        </form>
+       
         {% endif %}
     </section>
 
