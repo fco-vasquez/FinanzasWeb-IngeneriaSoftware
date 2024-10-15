@@ -120,21 +120,40 @@
 
     <section id="services">
         <h2>Nuestros Servicios</h2>
-        <div class="service-container">
-            <div class="service-box">
-                <h3>Servicio 1</h3>
-                <p>Descripción del servicio 1.</p>
+        <div class="carousel-container">
+            <div class="carousel">
+                <div class="service-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h2>Análisis de Inversiones</h2>
+                    <p>Asesoría personalizada sobre las mejores opciones de inversión, adaptada a tus objetivos financieros.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-wallet"></i>
+                    <h2>Control de Ingresos y Gastos</h2>
+                    <p>Monitorea y gestiona tus ingresos y gastos de forma eficiente con nuestras herramientas.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-chart-bar"></i>
+                    <h2>Proyecciones Financieras</h2>
+                    <p>Obtén proyecciones detalladas sobre tus ahorros e inversiones a largo plazo.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-book"></i>
+                    <h2>Educación Financiera</h2>
+                    <p>Accede a recursos educativos que te ayudarán a mejorar tus conocimientos sobre finanzas personales.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-bell"></i>
+                    <h2>Alertas y Notificaciones</h2>
+                    <p>Recibe notificaciones y alertas sobre eventos importantes relacionados con tus cuentas.</p>
+                </div>
             </div>
-            <div class="service-box">
-                <h3>Servicio 2</h3>
-                <p>Descripción del servicio 2.</p>
-            </div>
-            <div class="service-box">
-                <h3>Servicio 3</h3>
-                <p>Descripción del servicio 3.</p>
-            </div>
+            <!-- Botones de navegación -->
+            <button class="carousel-control prev">❮</button>
+            <button class="carousel-control next">❯</button>
         </div>
     </section>
+    
 
     <section id="contact" class="contact">
         <h2>CONTACTATE CON NOSOTROS</h2>
@@ -167,5 +186,6 @@
     <footer>
         <p>&copy; FinanzasWeb 2024. Todos los derechos reservados.</p>
     </footer>
+    <script src="{% static 'js/carousel.js' %}"></script>
 </body>
 </html>

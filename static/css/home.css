@@ -77,4 +77,118 @@ footer {
     }
 }
 
+/* Estilos para la sección de "Nuestros Servicios" */
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+    padding: 40px 20px;
+    background-color: #f0f4f8; /* Fondo más claro para resaltar las tarjetas */
+    border-radius: 10px; 
+    margin-top: 20px;
+}
 
+.carousel {
+    display: flex;
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); /* Transición más suave */
+    will-change: transform;
+}
+
+.service-card {
+    background-color: #fff;
+    padding: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-radius: 10px;
+    min-width: 300px; /* Ancho mínimo de cada tarjeta */
+    margin-right: 20px; /* Espaciado entre tarjetas */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animación suave */
+    flex-shrink: 0; 
+}
+
+.service-card:hover {
+    transform: translateY(-10px); 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); 
+}
+
+.service-card i {
+    font-size: 50px; /* Íconos más grandes y visibles */
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.service-card h2 {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.service-card p {
+    font-size: 1rem;
+    color: #666;
+}
+
+/* Botones del carrusel */
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #8ea9c5;
+    color: #fff;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 50%;
+    z-index: 10;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.carousel-control.prev {
+    left: -30px; /* Posicionamos el botón más fuera del área visible */
+}
+
+.carousel-control.next {
+    right: -30px;
+}
+
+.carousel-control:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Efecto hover más pronunciado */
+}
+
+/* Indicadores del carrusel */
+.carousel-indicators {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+.carousel-indicators .dot {
+    width: 10px;
+    height: 10px;
+    background-color: #394552;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.carousel-indicators .dot.active {
+    background-color: #272f36; /* Cambia el color cuando está activo */
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .service-card {
+        min-width: 100%; 
+        margin-bottom: 20px;
+    }
+
+    .carousel-control {
+        display: none; /* Ocultar los botones en pantallas pequeñas */
+    }
+}
