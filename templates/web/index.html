@@ -9,277 +9,456 @@
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
     <link rel="stylesheet" href="{% static 'css/nav.css' %}">
     <link rel="stylesheet" href="{% static 'css/contact.css' %}">
-
+    <link rel="stylesheet" href="{% static 'css/sobrenosotros.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contacs.css' %}">
 </head>
 
-<header>
-    <nav>
-        <ul class="nav-links"
-            style="list-style: none; padding: 0; display: flex; justify-content: space-between; align-items: center;">
-            <div style="display: flex; align-items: center;">
-                <li><a href="/" class="nav-button">Inicio</a></li>
-                <li><a href="#about" class="nav-button">Educación Financiera</a></li>
-                <li><a href="#services" class="nav-button">Servicios</a></li>
-                <li><a href="#contact" class="nav-button">Contacto</a></li>
-            </div>
-            <div>
-                {% if user.username %}
-                <li style="display: inline; margin-left: 20px;">
-                    <a href="/actualizar/" class="nav-button">{{ user.first_name }} {{ user.last_name }}</a>
-                </li>
-                <form action="{% url 'logout' %}" method="POST" style="display: inline;">
-                    {% csrf_token %}
-                    <button type="submit" class="btn salir nav-button">Salir</button>
-                </form>
-                {% else %}
-                <li style="display: inline; margin-left: 20px;">
-                    <a href="/registro-login/" class="nav-button">Iniciar sesión</a>
-                </li>
-                {% endif %}
-            </div>
-        </ul>
-    </nav>
-</header>
+<body>
+    
+    <header>
+        <nav class="navbar">
+            <ul class="nav-links">
+                <div class="left-nav">
+                    <li><a href="/" class="nav-button">Inicio</a></li>
+                    <li><a href="#about" class="nav-button">Educación Financiera</a></li>
+                    <li><a href="#services" class="nav-button">Servicios</a></li>
+                    <li><a href="#contact" class="nav-button">Contacto</a></li>
+                </div>
+                <div class="right-nav">
+                    {% if user.username %}
+                    <li>
+                        <a href="/actualizar/" class="nav-button">{{ user.first_name }} {{ user.last_name }}</a>
+                    </li>
+                    <form action="{% url 'logout' %}" method="POST" class="logout-form">
+                        {% csrf_token %}
+                        <button type="submit" class="btn salir">Salir</button>
+                    </form>
+                    {% else %}
+                    <li>
+                        <a href="/registro-login/" class="nav-button">Iniciar sesión</a>
+                    </li>
+                    {% endif %}
+                </div>
+            </ul>
+        </nav>
+    </header>
+    
+    <style>
+        /* General styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1a1a1a; /* Fondo negro */
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+    
+        /* Navbar styles */
+        .navbar {
+            background-color: #1a1a1a; /* Fondo negro */
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5); /* Sombra más sutil */
+        }
+    
+        .nav-links {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+    
+        .left-nav {
+            display: flex;
+            gap: 30px;
+        }
+    
+        .right-nav {
+            display: flex;
+            gap: 30px;
+        }
+    
+        .nav-button {
+            color: #ffffff; /* Texto blanco */
+            text-decoration: none;
+            font-weight: 600;
+            padding: 12px 25px;
+            background-color: transparent; /* Fondo transparente inicialmente */
+            border-radius: 30px;
+            border: 2px solid #ff4081; /* Borde rosado */
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+    
+        .nav-button:hover {
+            background-color: #ff4081; /* Fondo rosado al hacer hover */
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(255, 64, 129, 0.6);
+            transform: translateY(-3px);
+        }
+    
+        .nav-button.active {
+            background-color: #ff4081;
+            color: #ffffff;
+        }
+    
+        /* Hover effect */
+        .nav-button:before {
+            content: '';
+            position: absolute;
+            left: -100%;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.1); /* Efecto sutil */
+            z-index: 0;
+            transition: all 0.4s ease;
+        }
+    
+        .nav-button:hover:before {
+            left: 0;
+        }
+    
+        /* Logout button */
+        .btn.salir {
+            background-color: #ff4081;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+        }
+    
+        .btn.salir:hover {
+            background-color: #d81b60;
+            box-shadow: 0px 4px 15px rgba(216, 27, 96, 0.6);
+            transform: translateY(-3px);
+        }
+    
+        .logout-form {
+            display: inline-block;
+        }
+    
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 20px;
+            }
+    
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+    
+            .nav-button, .btn.salir {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+    
 
-<style>
-    body {
-        font-family: 'Arial', sans-serif;
+    <section id="home" class="hero-section">
+        <div class="hero-content">
+            <h1>Administra tu Futuro Financiero de Manera Inteligente</h1>
+            <p>Bienvenido a Tu Gestor de Finanzas Personalizado, donde te guiamos para maximizar tu potencial financiero.</p>
+            <a href="#about" class="cta-button">Saber Más</a>
+        </div>
+    </section>
+    
+    <style>
+        .hero-section {
+        background: url("{% static 'img/hero.jpg' %}") no-repeat center center/cover;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #fff;
+        position: relative;
     }
+    
+        .hero-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); /* Capa de color oscuro para mejor contraste con el texto */
+            z-index: 1;
+        }
+    
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+    
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5); /* Sombra sutil en el texto */
+        }
+    
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); /* Sombra sutil en el texto */
+        }
+    
+        .cta-button {
+            text-decoration: none;
+            background-color: #ff4081;
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+    
+        .cta-button:hover {
+            background-color: #d81b60;
+            transform: translateY(-5px); /* Efecto de elevación */
+            box-shadow: 0px 4px 10px rgba(255, 64, 129, 0.6); /* Sombra para hover */
+        }
+    
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+    
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+    
 
-    .nav-links {
-        background-color: #4cae4c;
-
-        padding: 10px 20px;
-
-        border-radius: 5px;
-
-    }
-
-    .nav-button {
-        text-decoration: none;
-
-        color: white;
-
-        background-color: #495057;
-
-        padding: 10px 15px;
-
-        border-radius: 5px;
-
-        transition: background-color 0.3s ease, transform 0.2s ease;
-
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-        margin-left: 10px;
-
-    }
-
-    .nav-button:hover {
-        background-color: #4cae4c;
-
-        transform: translateY(-2px);
-
-    }
-
-    .btn.salir {
-        background-color: #d9534f;
-
-    }
-
-    .btn.salir:hover {
-        background-color: #c9302c;
-
-    }
-</style>
-
-<nav>
-    <ul class="nav-right">
-        {% if user.username %}
-        <li><a href="/actualizar/">{{ user.first_name }} {{user.last_name}}</a></li>
-        <form action="{% url 'logout' %}" method="POST">
-            {% csrf_token %}
-            <button type="submit" class="btn salir">Salir</button>
-        </form>
-        {% else %}
-
-        {% endif %}
-    </ul>
-</nav>
-
-
-</header>
-<section id="home" class="hero-section">
-    <div class="hero-content">
-        <h1 style="font-family: 'Georgia', serif; font-size: 4rem; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);">
-            Administra tu Futuro Financiero de Manera Inteligente
-        </h1>
-        <p
-            style="font-family: 'Arial', sans-serif; font-size: 1.5rem; margin: 1rem 0; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);">
-            Bienvenido a Tu Gestor de Finanzas Personalizado, donde te guiamos para maximizar tu potencial
-            financiero.
-        </p>
-        <a href="#about" class="nav-button" style="margin-left: 10px;">
-
-            Saber Más
-        </a>
-    </div>
-</section>
-
-<section>
-    {% block content %}
-    <!-- Contenido dinámico -->
-
-
-    <article
-        style="background-color: #cbdfe9; border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-        <div style="font-family: 'Roboto', sans-serif;">
-            <h4
-                style="font-family: 'Montserrat', sans-serif; font-size: 1.8em; color: #121212; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;">
-                ¿Para qué sirve invertir?</h4>
-            <p style="font-size: 1.1em; color: #495057; line-height: 1.5;">Invertir te ayuda a hacer crecer tu
-                dinero en lugar de simplemente mantenerlo estático en una cuenta de ahorro.</p>
-            <p style="font-size: 1.1em; color: #495057; line-height: 1.5;">
-                Al invertir en activos como acciones, fondos mutuos, o bienes raíces, tienes la oportunidad de
-                obtener rendimientos que te permitan alcanzar metas financieras a largo plazo. Además, la inversión
-                puede proteger tu capital de la inflación y ayudarte a crear nuevas fuentes de ingresos.
+    <section id="financial-education" class="info-section">
+        <div class="info-card">
+            <h2>¿Para qué sirve invertir?</h2>
+            <p>
+                Invertir te ayuda a hacer crecer tu dinero en lugar de simplemente mantenerlo estático en una cuenta de ahorro.
             </p>
-            <ul style="padding-left: 20px; list-style-type: disc; color: #343a40;">
-                <li><b>Crecimiento del capital:</b> Tus ahorros pueden multiplicarse gracias a los rendimientos
-                    obtenidos.</li>
-                <li><b>Protección contra la inflación:</b> La inversión ayuda a mantener el poder adquisitivo de tu
-                    dinero.</li>
-                <li><b>Cumplimiento de metas a largo plazo:</b> Puedes alcanzar objetivos importantes como la compra
-                    de una vivienda o una jubilación cómoda.</li>
+            <ul>
+                <li><strong>Crecimiento del capital:</strong> Tus ahorros pueden multiplicarse gracias a los rendimientos obtenidos.</li>
+                <li><strong>Protección contra la inflación:</strong> La inversión ayuda a mantener el poder adquisitivo de tu dinero.</li>
+                <li><strong>Cumplimiento de metas a largo plazo:</strong> Puedes alcanzar objetivos importantes como la compra de una vivienda o una jubilación cómoda.</li>
             </ul>
         </div>
-    </article>
-
-    <article
-        style="background-color: #cbdfe9; border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-        <div style="font-family: 'Roboto', sans-serif;">
-            <h4
-                style="font-family: 'Montserrat', sans-serif; font-size: 1.8em; color: #121212; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;">
-                ¿Cuál es la diferencia entre ahorro e inversión?</h4>
-            <p style="font-size: 1.1em; color: #495057; line-height: 1.5;">El ahorro es una estrategia de bajo
-                riesgo que consiste en guardar dinero de manera segura, generalmente en una cuenta bancaria, y está
-                destinado a gastos a corto o mediano plazo.</p>
-            <p style="font-size: 1.1em; color: #495057; line-height: 1.5;">La inversión, en cambio, implica poner
-                dinero en activos que pueden generar rendimientos mayores, aunque también conlleva más riesgo.
-                Mientras que el ahorro es ideal para emergencias o metas cercanas, la inversión es clave para el
-                crecimiento del patrimonio a largo plazo.</p>
-            <ul style="padding-left: 20px; list-style-type: disc; color: #343a40;">
-                <li><b>Mejor planificación financiera:</b> Saber cuándo ahorrar y cuándo invertir te permite
-                    gestionar mejor tus recursos.</li>
-                <li><b>Mayor rendimiento a largo plazo:</b> Invertir te ofrece la posibilidad de obtener mayores
-                    ganancias que solo ahorrando.</li>
-                <li><b>Seguridad para gastos a corto plazo:</b> Ahorrar te da tranquilidad para cubrir gastos
-                    inmediatos o emergencias sin necesidad de endeudarte.</li>
+    
+        <div class="info-card">
+            <h2>¿Cuál es la diferencia entre ahorro e inversión?</h2>
+            <p>
+                El ahorro es una estrategia de bajo riesgo que consiste en guardar dinero de manera segura, generalmente en una cuenta bancaria, y está destinado a gastos a corto o mediano plazo.
+            </p>
+            <ul>
+                <li><strong>Mejor planificación financiera:</strong> Saber cuándo ahorrar y cuándo invertir te permite gestionar mejor tus recursos.</li>
+                <li><strong>Mayor rendimiento a largo plazo:</strong> Invertir te ofrece la posibilidad de obtener mayores ganancias que solo ahorrando.</li>
+                <li><strong>Seguridad para gastos a corto plazo:</strong> Ahorrar te da tranquilidad para cubrir gastos inmediatos o emergencias sin necesidad de endeudarte.</li>
             </ul>
         </div>
-    </article>
-
-    <article
-        style="background-color: #cbdfe9; border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-        <div style="font-family: 'Roboto', sans-serif;">
-            <h4
-                style="font-family: 'Montserrat', sans-serif; font-size: 1.8em; color: #121212; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;">
-                ¿Cómo puedo empezar a mejorar mi educación financiera?</h4>
-            <p style="font-size: 1.1em; color: #495057; line-height: 1.5;">Mejorar tu educación financiera te
-                permitirá tomar decisiones más informadas sobre cómo administrar tus ingresos, controlar tus gastos,
-                y planificar para el futuro.</p>
-            <p style="font-size: 1.1em; color: #495057; line-height: 1.5;">Puedes empezar leyendo sobre temas como
-                el presupuesto, el manejo de deudas, y las opciones de inversión. También puedes utilizar
-                plataformas educativas y herramientas de finanzas que te ayuden a aprender de manera práctica y
-                personalizada.</p>
-            <ul style="padding-left: 20px; list-style-type: disc; color: #343a40;">
-                <li><b>Toma de decisiones informadas:</b> Puedes gestionar tus recursos de manera eficiente,
-                    evitando errores comunes.</li>
-                <li><b>Mayor control de tus finanzas personales:</b> Entenderás mejor cómo ahorrar, invertir y
-                    manejar tus gastos.</li>
-                <li><b>Preparación para el futuro:</b> Estarás mejor preparado para enfrentar imprevistos y alcanzar
-                    metas financieras a largo plazo.</li>
+    
+        <div class="info-card">
+            <h2>¿Cómo puedo empezar a mejorar mi educación financiera?</h2>
+            <p>
+                Mejorar tu educación financiera te permitirá tomar decisiones más informadas sobre cómo administrar tus ingresos, controlar tus gastos, y planificar para el futuro.
+            </p>
+            <ul>
+                <li><strong>Toma de decisiones informadas:</strong> Puedes gestionar tus recursos de manera eficiente, evitando errores comunes.</li>
+                <li><strong>Mayor control de tus finanzas personales:</strong> Entenderás mejor cómo ahorrar, invertir y manejar tus gastos.</li>
+                <li><strong>Preparación para el futuro:</strong> Estarás mejor preparado para enfrentar imprevistos y alcanzar metas financieras a largo plazo.</li>
             </ul>
         </div>
-    </article>
-    {% endblock %}
-</section>
-
-
-
-<section id="about">
-    <h2>Sobre Nosotros</h2>
-    <p>Descripción de la empresa y sus valores.</p>
-</section>
-
-<section id="services">
-    <h2>Nuestros Servicios</h2>
-    <div class="carousel-container">
-        <div class="carousel">
-            <div class="service-card">
-                <i class="fas fa-chart-line"></i>
-                <h2>Análisis de Inversiones</h2>
-                <p>Asesoría personalizada sobre las mejores opciones de inversión, adaptada a tus objetivos
-                    financieros.</p>
+    </section>
+    
+    <style>
+        .info-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 40px 0;
+            background-color: #1a1a1a;
+        }
+    
+        .info-card {
+            background-color: #222;
+            color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+    
+        .info-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #ff4081;
+            text-align: center;
+            border-bottom: 2px solid #ff4081;
+            padding-bottom: 10px;
+        }
+    
+        .info-card p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #bfbfbf;
+            margin-bottom: 15px;
+        }
+    
+        .info-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+    
+        .info-card ul li {
+            background: url('../img/check-icon.svg') no-repeat left center;
+            background-size: 20px;
+            padding-left: 30px;
+            margin-bottom: 10px;
+        }
+    
+        .info-card ul li strong {
+            color: #ff4081;
+        }
+    
+        .info-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+    
+        @media (max-width: 768px) {
+            .info-section {
+                flex-direction: column;
+                align-items: center;
+            }
+    
+            .info-card {
+                max-width: 100%;
+            }
+        }
+    </style>
+    
+    <section id="about" class="about-section">
+        <h2>Sobre Nosotros</h2>
+        <p>Somos un equipo dedicado a brindarte las mejores soluciones financieras.</p>
+    
+        <div class="team-container">
+            <div class="team-member">
+                <div class="text-content">
+                    <h3>Juan Pérez</h3>
+                    <p>CEO y Fundador</p>
+                    <p>Liderando la visión de la empresa hacia un futuro financiero más inclusivo.</p>
+                </div>
+                <div class="image-container">
+                    <img src="{% static 'img/persona1.jpg' %}" alt="Person 1">
+                </div>
             </div>
-            <div class="service-card">
-                <i class="fas fa-wallet"></i>
-                <h2>Control de Ingresos y Gastos</h2>
-                <p>Monitorea y gestiona tus ingresos y gastos de forma eficiente con nuestras herramientas.</p>
+    
+            <div class="team-member">
+                <div class="text-content">
+                    <h3>Ana Rodríguez</h3>
+                    <p>Directora de Finanzas</p>
+                    <p>Expertise en inversiones y administración de capital a largo plazo.</p>
+                </div>
+                <div class="image-container">
+                    <img src="{% static 'img/persona2.jpg' %}" alt="Person 2">
+                </div>
             </div>
-            <div class="service-card">
-                <i class="fas fa-chart-bar"></i>
-                <h2>Proyecciones Financieras</h2>
-                <p>Obtén proyecciones detalladas sobre tus ahorros e inversiones a largo plazo.</p>
+    
+            <div class="team-member">
+                <div class="text-content">
+                    <h3>Carlos Martínez</h3>
+                    <p>Desarrollador de Software</p>
+                    <p>Construyendo plataformas innovadoras para la gestión de tus finanzas.</p>
+                </div>
+                <div class="image-container">
+                    <img src="{% static 'img/persona3.jpg' %}" alt="Person 3">
+                </div>
             </div>
-            <div class="service-card">
-                <i class="fas fa-book"></i>
-                <h2>Educación Financiera</h2>
-                <p>Accede a recursos educativos que te ayudarán a mejorar tus conocimientos sobre finanzas
-                    personales.</p>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-bell"></i>
-                <h2>Alertas y Notificaciones</h2>
-                <p>Recibe notificaciones y alertas sobre eventos importantes relacionados con tus cuentas.</p>
+    
+            <div class="team-member">
+                <div class="text-content">
+                    <h3>Lucía Fernández</h3>
+                    <p>Asesora Financiera</p>
+                    <p>Guiándote en el proceso de toma de decisiones financieras inteligentes.</p>
+                </div>
+                <div class="image-container">
+                    <img src="{% static 'img/persona4.jpg' %}" alt="Person 4">
+                </div>
             </div>
         </div>
-        <!-- Botones de navegación -->
-        <button class="carousel-control prev">❮</button>
-        <button class="carousel-control next">❯</button>
-    </div>
-</section>
-
-
-<section id="contact" class="contact">
-    <h2>CONTACTATE CON NOSOTROS</h2>
-    {% if user.username %}
-    <p>DETALLES SI EL USUARIO ESTA LOGEADO.</p>
-    {% else %}
-    <form>
-        <div class="input-box">
-            <input type="text" required placeholder="Nombre y Apellido">
+    </section>
+    
+    
+   
+    <section id="services" class="carousel-section">
+        <h2>Nuestros Servicios</h2>
+        <div class="carousel-container">
+            <div class="carousel">
+                <div class="service-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h2>Análisis de Inversiones</h2>
+                    <p>Asesoría personalizada sobre las mejores opciones de inversión, adaptada a tus objetivos financieros.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-wallet"></i>
+                    <h2>Control de Ingresos y Gastos</h2>
+                    <p>Monitorea y gestiona tus ingresos y gastos de forma eficiente con nuestras herramientas.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-chart-bar"></i>
+                    <h2>Proyecciones Financieras</h2>
+                    <p>Obtén proyecciones detalladas sobre tus ahorros e inversiones a largo plazo.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-bell"></i>
+                    <h2>Alertas y Notificaciones</h2>
+                    <p>Recibe notificaciones sobre eventos importantes relacionados con tus cuentas y movimientos financieros.</p>
+                </div>
+            </div>
+            <button class="carousel-control prev">❮</button>
+            <button class="carousel-control next">❯</button>
         </div>
-        <div class="input-box">
-            <input type="email" required placeholder="Correo electronico">
-        </div>
-        <div class="input-box">
-            <input type="text" required placeholder="Asunto">
-        </div>
-        <div class="input-box">
-            <textarea cols="30" rows="10" placeholder="Escribe tu mensaje"></textarea>
-        </div>
-        <button type="submit">Enviar Mensaje</button>
-    </form>
+    </section>
+    
+    <section id="contact" class="contact">
+        <h2>Contáctate con Nosotros</h2>
+        {% if user.username %}
+        <p>Detalles si el usuario está logeado.</p>
+        {% else %}
+        <form>
+            <div class="input-box">
+                <input type="text" required placeholder="Nombre y Apellido">
+            </div>
+            <div class="input-box">
+                <input type="email" required placeholder="Correo Electrónico">
+            </div>
+            <div class="input-box">
+                <input type="text" required placeholder="Asunto">
+            </div>
+            <div class="input-box">
+                <textarea cols="30" rows="10" placeholder="Escribe tu mensaje"></textarea>
+            </div>
+            <button type="submit">Enviar Mensaje</button>
+        </form>
+        {% endif %}
+    </section>
+    
 
-    {% endif %}
-</section>
+    <footer>
+        <p>&copy; FinanzasWeb 2024. Todos los derechos reservados.</p>
+    </footer>
 
-<footer>
-    <p>&copy; FinanzasWeb 2024. Todos los derechos reservados.</p>
-</footer>
-
-<script src="{% static 'js/carousel.js' %}"></script>
-
+    <script src="{% static 'js/carousel.js' %}"></script>
 </body>
-
 </html>

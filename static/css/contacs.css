@@ -8,7 +8,7 @@
 
 .contact h2 {
     font-size: 2.5rem;
-    color: #ff4081;
+    color: #ff4081; /* Mismo rosa utilizado en todo el sitio */
     margin-bottom: 20px;
 }
 
@@ -21,15 +21,14 @@
 form {
     display: flex;
     flex-direction: column;
-    text-align: center;
     align-items: center;
     gap: 20px;
     max-width: 750px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #1e1e1e;
+    background-color: #1e1e1e; /* Fondo gris oscuro para el formulario */
     border-radius: 10px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Sombra para resaltar el formulario */
 }
 
 .input-box {
@@ -40,28 +39,28 @@ form {
 .input-box textarea {
     width: 100%;
     padding: 15px;
-    background-color: #333;
-    border: 1px solid #444;
+    background-color: #333; /* Color de fondo oscuro para las cajas de texto */
+    border: 1px solid #444; /* Borde gris oscuro */
     border-radius: 5px;
-    color: #fff;
+    color: #fff; /* Texto blanco */
     font-size: 1rem;
     transition: border-color 0.3s ease;
 }
 
 .input-box input:focus,
 .input-box textarea:focus {
-    border-color: #ff4081;
+    border-color: #ff4081; /* Resaltar el borde con color rosa en el focus */
 }
 
 .input-box input::placeholder,
 .input-box textarea::placeholder {
-    color: #aaa;
+    color: #aaa; /* Color gris claro para los placeholders */
 }
 
 form button {
     width: 40%;
     padding: 12px 0;
-    background-color: #ff4081;
+    background-color: #ff4081; /* Botón con el color rosa del diseño */
     color: #fff;
     border: none;
     border-radius: 50px;
@@ -71,8 +70,8 @@ form button {
 }
 
 form button:hover {
-    background-color: #d81b60;
-    transform: translateY(-2px);
+    background-color: #d81b60; /* Oscurecer el botón en hover */
+    transform: translateY(-2px); /* Animación suave */
 }
 
 /* Responsive Design */
@@ -82,6 +81,6 @@ form button:hover {
     }
 
     form button {
-        width: 100%;
+        width: 100%; /* El botón ocupará todo el ancho en pantallas pequeñas */
     }
 }
