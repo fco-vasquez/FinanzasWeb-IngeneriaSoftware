@@ -20,7 +20,8 @@ from django.http import JsonResponse
 from django.core.serializers.json import DjangoJSONEncoder
 import json
 
-def dashboard(request):
+"""
+def dashboard2(request):
     ingresos = Transaction.objects.filter(user=request.user, transaction_type='Ingreso')
     egresos = Transaction.objects.filter(user=request.user, transaction_type='Egreso')
 
@@ -34,7 +35,7 @@ def dashboard(request):
         'egresos_data': [trans.amount for trans in egresos]
     }
     return render(request, 'finanzas/dashboard.html', context)
-
+"""
 
 import requests
 from django.http import JsonResponse
@@ -91,7 +92,17 @@ def add_transaction(request):
 #nuevo APIs bcchapi
 
 def dashboard(request):
-    # Consultar las series con el método cuadro de bcchapi
+    # Datos de transacciones de ingresos y egresos
+    ingresos = Transaction.objects.filter(user=request.user, transaction_type='Ingreso')
+    egresos = Transaction.objects.filter(user=request.user, transaction_type='Egreso')
+
+    total_ingresos = sum(trans.amount for trans in ingresos)
+    total_egresos = sum(trans.amount for trans in egresos)
+
+    ingresos_data = [trans.amount for trans in ingresos]
+    egresos_data = [trans.amount for trans in egresos]
+
+    # Datos de la API de BCCH
     cuadro = siete.cuadro(
         series=[
             "F021.M1.STO.N.CLP.0.M",  # M1
@@ -101,27 +112,27 @@ def dashboard(request):
             "F033.FBK.PPI.N.Z.2018.0.A"   # Formación bruta de capital anual
         ],
         nombres=["m1", "fm2", "fbkf_real", "fbkf_trimestral", "fbkf_anual"],
-        desde="2020-01-01",  # Últimos 4 años
+        desde="2020-01-01",
         hasta="2023-12-31",
         variacion=12,
         frecuencia="M",
         observado={"m1": np.mean, "fm2": np.mean, "fbkf_real": np.mean, "fbkf_trimestral": np.mean, "fbkf_anual": "last"}
     )
 
-    # Eliminar filas con valores NaN
+    # Eliminar filas con valores NaN y formatear los valores
     cuadro.dropna(inplace=True)
-
-    # Formatear los valores para que solo muestren 2 decimales
     cuadro = cuadro.round(2)
-
-    # Convertir índice (fechas) a una columna
     cuadro.reset_index(inplace=True)
 
-    # Convertir a diccionario para enviar a la plantilla
+    # Convertir a diccionario para enviarlo a la plantilla
     datos_bcch = cuadro.to_dict(orient="records")
 
-    # Enviar datos a la plantilla
+    # Unificar todo en el contexto
     context = {
+        'total_ingresos': total_ingresos,
+        'total_egresos': total_egresos,
+        'ingresos_data': ingresos_data,
+        'egresos_data': egresos_data,
         'datos_bcch': datos_bcch
     }
 

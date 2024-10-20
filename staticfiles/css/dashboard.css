@@ -67,12 +67,13 @@ header nav ul li a {
     gap: 20px;
 }
 
-/* Fila horizontal: Ingresos vs Egreso + Imagen */
+/* Aseguramos que las dos secciones estén una al lado de la otra */
 .grid-row-horizontal {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    align-items: stretch;
+    grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+    gap: 20px; /* Espacio entre las columnas */
+    align-items: stretch; /* Asegura que ambas se alineen en altura */
+    justify-items: stretch; /* Extiende ambos elementos al ancho disponible */
 }
 
 /* Tarjetas de Estadísticas */
@@ -113,6 +114,8 @@ header nav ul li a {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    width: 100%;
 }
 
 .large-card {
@@ -134,11 +137,19 @@ header nav ul li a {
     border-radius: 8px;
 }
 
-/* Estilos de la tabla */
+/* Estilos de la tabla con scroll */
+.table-container {
+    max-height: 400px; /* Altura máxima que puede ocupar la tabla */
+    overflow-y: auto; /* Habilitar scroll vertical */
+    overflow-x: auto; /* Habilitar scroll horizontal si la tabla es muy ancha */
+    margin-top: 15px;
+    border: 1px solid #ddd; /* Agregar un borde a la tabla */
+    border-radius: 8px; /* Bordes redondeados para el contenedor de la tabla */
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 15px;
 }
 
 th, td {
@@ -242,5 +253,14 @@ ul li {
 
     .grid-row-horizontal {
         grid-template-columns: 1fr;
+    }
+}
+
+/* Scroll para la tabla en pantallas pequeñas */
+@media (max-width: 600px) {
+    .table-container {
+        max-height: 300px;
+        overflow-y: scroll;
+        overflow-x: scroll;
     }
 }
