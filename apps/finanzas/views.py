@@ -6,6 +6,20 @@ from .forms import CurrencyForm
 from .forms import TransactionForm
 from .models import Transaction
 
+from django.shortcuts import render
+import bcchapi
+import pandas as pd
+import numpy as np  # Asegúrate de tener numpy importado
+from django.db import models
+
+
+# Configurar la conexión a la API de BCCH
+siete = bcchapi.Siete("nicolasveas68@gmail.com", "ISlu11fra#")
+
+from django.http import JsonResponse
+from django.core.serializers.json import DjangoJSONEncoder
+import json
+
 def dashboard(request):
     ingresos = Transaction.objects.filter(user=request.user, transaction_type='Ingreso')
     egresos = Transaction.objects.filter(user=request.user, transaction_type='Egreso')
@@ -20,6 +34,7 @@ def dashboard(request):
         'egresos_data': [trans.amount for trans in egresos]
     }
     return render(request, 'finanzas/dashboard.html', context)
+
 
 import requests
 from django.http import JsonResponse
@@ -72,3 +87,42 @@ def add_transaction(request):
     
     transactions = Transaction.objects.filter(user=request.user)  # Obtén transacciones del usuario
     return render(request, 'finanzas/add_transaction.html', {'form': form, 'transactions': transactions})
+
+#nuevo APIs bcchapi
+
+def dashboard(request):
+    # Consultar las series con el método cuadro de bcchapi
+    cuadro = siete.cuadro(
+        series=[
+            "F021.M1.STO.N.CLP.0.M",  # M1
+            "F021.FM2.STO.N.CLP.0.M",  # Fondos mutuos en M2
+            "F033.FKF.PPB.Z.Z.2018.0.T",  # Formación bruta capital fijo real
+            "F033.FBK.PPI.N.Z.2018.0.T",  # Formación bruta de capital trimestral
+            "F033.FBK.PPI.N.Z.2018.0.A"   # Formación bruta de capital anual
+        ],
+        nombres=["m1", "fm2", "fbkf_real", "fbkf_trimestral", "fbkf_anual"],
+        desde="2020-01-01",  # Últimos 4 años
+        hasta="2023-12-31",
+        variacion=12,
+        frecuencia="M",
+        observado={"m1": np.mean, "fm2": np.mean, "fbkf_real": np.mean, "fbkf_trimestral": np.mean, "fbkf_anual": "last"}
+    )
+
+    # Eliminar filas con valores NaN
+    cuadro.dropna(inplace=True)
+
+    # Formatear los valores para que solo muestren 2 decimales
+    cuadro = cuadro.round(2)
+
+    # Convertir índice (fechas) a una columna
+    cuadro.reset_index(inplace=True)
+
+    # Convertir a diccionario para enviar a la plantilla
+    datos_bcch = cuadro.to_dict(orient="records")
+
+    # Enviar datos a la plantilla
+    context = {
+        'datos_bcch': datos_bcch
+    }
+
+    return render(request, 'finanzas/dashboard.html', context)
