@@ -1,0 +1,129 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Finanzas</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Finanzas Web</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="add/">Añadir Detalles</a></li>
+                <li><a href="#">Inversiones</a></li>
+                <li><a href="/actualizar/">Perfil</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="dashboard-container">
+        <div class="top-stats">
+            <div class="stat-card">
+                <h3>TODAY'S MONEY</h3>
+                <p>$53,000</p>
+                <span>+55% since yesterday</span>
+            </div>
+            <div class="stat-card">
+                <h3>SALES</h3>
+                <p>$103,430</p>
+                <span>+5% since last month</span>
+            </div>
+        </div>
+    
+<!-- Fila horizontal para Ingresos vs Egreso y la imagen -->
+<div class="content-container">
+    <div class="info-box">
+        <div class="left-box">
+            <h3>Ingresos vs Egresos (Función)</h3>
+            <!-- Aquí va el gráfico -->
+            <canvas id="ingresosEgresosChart"></canvas>
+            
+            <!-- Elementos ocultos con los datos de ingresos y egresos -->
+            <div id="ingresos-data" style="display: none;">{{ total_ingresos|safe }}</div>
+            <div id="egresos-data" style="display: none;">{{ total_egresos|safe }}</div>
+        </div>
+        
+        <div class="right-box">
+            <div class="image-container">
+                <p>Contenido a la derecha del gráfico</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+        
+    
+        <!-- Sección Fondos Mutuos y Divisas -->
+        <div class="grid-row-horizontal">
+            <div class="card medium-card">
+                <h2>Fondos Mutuos (API)</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Country</th>
+                            <th>Sales</th>
+                            <th>Value</th>
+                            <th>Bounce</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>United States</td>
+                            <td>2500</td>
+                            <td>$230,900</td>
+                            <td>29.9%</td>
+                        </tr>
+                        <tr>
+                            <td>Germany</td>
+                            <td>3,900</td>
+                            <td>$440,000</td>
+                            <td>40.22%</td>
+                        </tr>
+                        <tr>
+                            <td>Great Britain</td>
+                            <td>1,400</td>
+                            <td>$190,700</td>
+                            <td>46.4%</td>
+                        </tr>
+                        <tr>
+                            <td>Brasil</td>
+                            <td>562</td>
+                            <td>$143,960</td>
+                            <td>39.5%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card medium-card">
+                <h2>Divisas a CLP (API)</h2>
+                <form id="currency-form" method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}  <!-- Esto debería generar los inputs correctamente -->
+                    <button type="submit">Convertir</button>
+                </form>
+                
+                <div id="conversion-results">
+                    <!-- Los resultados de la conversión aparecerán aquí -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- Scripts para gráficos (si es necesario) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'js/divisasExchange.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'js/dashboardChart.js' %}"></script>
+
+</body>
+</html>

@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Principal</title>
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
-    <link rel="stylesheet" href="{% static 'css/nav.css' %}">
     <link rel="stylesheet" href="{% static 'css/contact.css' %}">
     <link rel="stylesheet" href="{% static 'css/sobrenosotros.css' %}">
     <link rel="stylesheet" href="{% static 'css/contacs.css' %}">
@@ -20,27 +19,22 @@
             <ul class="nav-links">
                 <div class="left-nav">
                     <li><a href="/" class="nav-button">Inicio</a></li>
-                    <li><a href="#about" class="nav-button">Educación Financiera</a></li>
-                    <li><a href="#services" class="nav-button">Servicios</a></li>
-                    <li><a href="#contact" class="nav-button">Contacto</a></li>
-                </div>
-                <div class="right-nav">
-                    {% if user.username %}
-                    <li>
-                        <a href="/actualizar/" class="nav-button">{{ user.first_name }} {{ user.last_name }}</a>
-                    </li>
-                    <form action="{% url 'logout' %}" method="POST" class="logout-form">
-                        {% csrf_token %}
-                        <button type="submit" class="btn salir">Salir</button>
-                    </form>
-                    {% else %}
-                    <li>
-                        <a href="/registro-login/" class="nav-button">Iniciar sesión</a>
-                    </li>
-                    {% endif %}
+                    <li><a href="#about" class="nav-button" id="deslizar-ainformacion">Educación Financiera</a></li>
+                    <li><a href="#services" class="nav-button" id="deslizar-aservicio">Servicios</a></li>
+                    <li><a href="#contact" class="nav-button" id="deslizar-acontacto">Contacto</a></li>
                 </div>
             </ul>
+            <div class="right-nav">
+                {% if user.username %}
+                   <a href="actualizar/Finanzas" class="nav-button">{{ user.first_name }} {{ user.last_name }}</a>
+                {% else %}
+                
+                    <a href="/registro-login/" class="nav-button">Iniciar sesión</a>
+                
+                {% endif %}
+            </div>
         </nav>
+        
     </header>
     
     <style>
@@ -107,22 +101,6 @@
             color: #ffffff;
         }
     
-        /* Hover effect */
-        .nav-button:before {
-            content: '';
-            position: absolute;
-            left: -100%;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.1); /* Efecto sutil */
-            z-index: 0;
-            transition: all 0.4s ease;
-        }
-    
-        .nav-button:hover:before {
-            left: 0;
-        }
     
         /* Logout button */
         .btn.salir {
@@ -175,7 +153,7 @@
     
     <style>
         .hero-section {
-        background: url("{% static 'img/hero.jpg' %}") no-repeat center center/cover;
+        background: url("{% static 'img/hero.png' %}") no-repeat center center/cover;
         height: 100vh;
         display: flex;
         align-items: center;
@@ -242,7 +220,7 @@
     
 
     <section id="financial-education" class="info-section">
-        <div class="info-card">
+        <div class="info-card" id="information">
             <h2>¿Para qué sirve invertir?</h2>
             <p>
                 Invertir te ayuda a hacer crecer tu dinero en lugar de simplemente mantenerlo estático en una cuenta de ahorro.
@@ -426,8 +404,8 @@
                     <p>Recibe notificaciones sobre eventos importantes relacionados con tus cuentas y movimientos financieros.</p>
                 </div>
             </div>
-            <button class="carousel-control prev">❮</button>
-            <button class="carousel-control next">❯</button>
+            <button class="carousel-control prev"></button>
+            <button class="carousel-control next"></button>
         </div>
     </section>
     
@@ -456,9 +434,10 @@
     
 
     <footer>
-        <p>&copy; FinanzasWeb 2024. Todos los derechos reservados.</p>
+        <center><p>&copy; FinanzasWeb 2024. Todos los derechos reservados.</p></center>
     </footer>
 
     <script src="{% static 'js/carousel.js' %}"></script>
+    <script src="{% static 'js/scroll.js' %}"></script>
 </body>
 </html>

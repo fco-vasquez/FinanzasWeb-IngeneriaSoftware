@@ -1,0 +1,13 @@
+<!-- templates/finanzas/add_transaction.html -->
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar</button>
+</form>
+
+<!-- Lista de transacciones existentes -->
+<ul>
+    {% for transaction in transactions %}
+        <li>{{ transaction.date }} - {{ transaction.type }}: ${{ transaction.amount }}</li>
+    {% endfor %}
+</ul>

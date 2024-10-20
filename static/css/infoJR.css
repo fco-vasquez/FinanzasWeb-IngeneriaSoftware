@@ -1,0 +1,38 @@
+#h1JR {
+    font-family: 'sans', sans-serif;
+    font-size: 4rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+#h4JR {
+    font-family: 'Montserrat', sans-serif; 
+    font-size: 1.8em; 
+    color: #121212; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+    margin-bottom: 10px;
+}
+
+#pJR{
+    font-size: 1.1em; 
+    color: #495057; 
+    line-height: 1.5;
+}
+#ulJR{
+    padding-left: 20px; 
+    list-style-type: disc; 
+    color: #343a40;
+}
+#articleJR{
+    background-color: #cbdfe9;
+    border-radius: 10px; 
+    padding: 20px; 
+    margin-bottom: 20px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+#divJR{
+    font-family: 'Roboto', sans-serif;
+}
+#pJRE{
+    font-family: 'Roboto', sans-serif;
+}

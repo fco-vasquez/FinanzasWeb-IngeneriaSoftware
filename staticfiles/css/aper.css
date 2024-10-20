@@ -1,0 +1,187 @@
+/* Para eliminar márgenes y rellenos predeterminados */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos generales para la página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    width: 80%;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group h2 {
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+.form input,
+.form select,
+.form textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+}
+
+.form input:focus,
+.form select:focus,
+.form textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+
+
+
+
+
+.submit-btn {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #118a17;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #0e6412;
+    
+}
+
+.home-btn {
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.home-btn:hover {
+    background-color: #0056b3;
+    
+}
+
+
+.boton{
+    list-style-type: none;
+    text-align: center;
+    text-decoration: none;
+}
+
+
+
+/* Contenedor para la imagen */
+.profile-image-container {
+    display: flex;
+    justify-content: center; /* Centra la imagen horizontalmente */
+    align-items: center;     /* Centra la imagen verticalmente */
+    padding: 20px;           /* Espacio alrededor de la imagen */
+    border: 2px solid #ccc;  /* Color y grosor del borde */
+    border-radius: 10px;     /* Bordes redondeados */
+    background-color: #f9f9f9; /* Color de fondo para contraste */
+    margin: 0 auto;          /* Centra el contenedor horizontalmente */
+    width: 300px;            /* Ancho del contenedor */
+    height: 300px;           /* Altura del contenedor */
+    overflow: hidden;        /* Oculta la parte de la imagen que sobresale */
+}
+
+/* tamaño de la imagen dentro del contenedor */
+.profile-image-container img {
+    width: 100%; /* La imagen ocupa todo el ancho del contenedor */
+    height: auto; /* Mantiene la proporción */
+}
+
+
+
+/* contenedor mensaje */
+.messages {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    overflow: hidden; /* para que no se salga del cuadro */
+}
+
+/* Estilo mensaje */
+.messages .message {
+    padding: 8px; 
+    margin-bottom: 10px;
+    border-radius: 5px;
+    max-width: 100%; 
+    box-sizing: border-box; 
+    animation: slideInRight 0.5s ease-out, fadeOut 0.5s 7.5s forwards; /* Animación para entrada y salida */
+    font-size: 14px; /* Tamaño de fuente más pequeño */
+}
+
+/* Animación de entrada */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Animación de salida */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+/* Estilos para diferentes tipos de mensajes */
+.messages .message.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.messages .message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.messages .message.info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}

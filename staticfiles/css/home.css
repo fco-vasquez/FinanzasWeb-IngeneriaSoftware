@@ -1,0 +1,154 @@
+/* General styles */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #1c1c1c;
+    color: #ffffff;
+    line-height: 1.6;
+}
+
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, #4a148c, #1c1c1c);
+    color: #fff;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero-section h1 {
+    font-size: 3.5rem;
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7);
+}
+
+.hero-section p {
+    font-size: 1.3rem;
+    margin: 20px 0;
+}
+
+.cta-button {
+    background-color: #7b1fa2;
+    color: #fff;
+    padding: 15px 30px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    border-radius: 30px;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #d81b60;
+}
+
+/* Carousel Section */
+.carousel-section {
+    background-color: #1a1a1a; /* Fondo oscuro */
+    padding: 50px 0;
+    text-align: center;
+}
+
+.carousel-section h2 {
+    color: #ff4081;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+/* Carousel Container */
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+    padding: 40px 20px;
+    background-color: #2b2b2b;
+    border-radius: 15px;
+    margin-top: 40px;
+}
+
+.carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    gap: 20px;
+    padding: 0 40px;
+}
+
+.service-card {
+    background-color: #333;
+    padding: 20px 30px; /* Espacio interno ajustado */
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    flex-shrink: 0;
+    width: 450px; /* Aumentar ancho */
+    height: 200px; /* Reducir altura */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.service-card i {
+    font-size: 2rem; /* Ajustado para adaptarse al nuevo tamaño */
+    color: #ff4081;
+    margin-bottom: 15px;
+}
+
+.service-card h2 {
+    font-size: 1.6rem;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.service-card p {
+    color: #d3d3d3;
+    font-size: 1rem;
+}
+
+/* Carousel Controls */
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    background-color: #ff4081;
+    color: white;
+    padding: 10px 15px;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1;
+    transition: transform 0.2s ease;
+}
+
+.carousel-control.prev {
+    left: 10px;
+    transform: translateY(-50%);
+}
+
+.carousel-control.next {
+    right: 10px;
+    transform: translateY(-50%);
+}
+
+.carousel-control:hover {
+    background-color: #d81b60;
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .carousel {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .service-card {
+        width: 100%;
+    }
+
+    .carousel-control {
+        display: none;
+    }
+}
