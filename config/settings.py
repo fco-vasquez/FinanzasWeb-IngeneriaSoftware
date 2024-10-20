@@ -145,16 +145,16 @@ LOGOUT_REDIRECT_URL = '/'
 
 
 # manda el correo de forma local osea lo manda al terminal
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 # aqui se configura el correo al cual va estar mandando a hacia los correos de usuairos registrador
 
-"""
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'proyectotesiscity2024@gmail.com'  # Reemplaza con tu correo electrónico
-EMAIL_HOST_PASSWORD = 'qxcg durl bmxm bdde'  # Reemplaza con tu contraseña de correo electrónico 
-"""
+EMAIL_HOST_USER = 'finanzasmtb8@gmail.com'  # Reemplaza con tu correo electrónico
+EMAIL_HOST_PASSWORD = 'ndko hhjp fhee wcqj'  # Reemplaza con tu contraseña de correo electrónico 
+
