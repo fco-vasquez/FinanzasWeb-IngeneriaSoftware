@@ -21,7 +21,7 @@
         <nav class="navbar">
             <ul class="nav-links">
                 <div class="left-nav">
-                    <li><a href="/" class="nav-button">Inicio</a></li>
+                    <li><a href="/templates/web/index.html" class="nav-button">Inicio</a></li>
                     <li><a href="#about" class="nav-button" id="deslizar-ainformacion">Educación Financiera</a></li>
                     <li><a href="#about" class="nav-button" id="deslizar-ainformacion">Sobre Nosotros</a></li>
                     <li><a href="#services" class="nav-button" id="deslizar-aservicio">Servicios</a></li>
@@ -29,13 +29,10 @@
                 </div>
             </ul>
             <div class="right-nav">
-                {% if user.username %}
-                   <a href="actualizar/Finanzas" class="nav-button">{{ user.first_name }} {{ user.last_name }}</a>
-                {% else %}
+                   <a href="/templates/finanzas/dashboard.html" class="nav-button">{{ user.first_name }} {{ user.last_name }}</a>
                 
-                    <a href="/registro-login/" class="nav-button">Iniciar sesión</a>
+                    <a href="/templates/users/registro.html" class="nav-button">Iniciar sesión</a>
                 
-                {% endif %}
             </div>
         </nav>
         
@@ -102,7 +99,8 @@
                     <p>Liderando la visión de la empresa hacia un futuro financiero más inclusivo.</p>
                 </div>
                 <div class="image-container">
-                    <img src="{% static 'img/persona1.jpg' %}" alt="Person 1">
+                    <img src="/static/img/persona1.jpg" alt="">
+                    <!--<img src="{% static 'img/persona1.jpg' %}" alt="Person 1">-->
                 </div>
             </div>
     
@@ -113,7 +111,8 @@
                     <p>Expertise en inversiones y administración de capital a largo plazo.</p>
                 </div>
                 <div class="image-container">
-                    <img src="{% static 'img/persona2.jpg' %}" alt="Person 2">
+                    <img src="/static/img/persona2.jpg" alt="">
+                    <!--<img src="{% static 'img/persona2.jpg' %}" alt="Person 2">-->
                 </div>
             </div>
     
@@ -124,7 +123,8 @@
                     <p>Construyendo plataformas innovadoras para la gestión de tus finanzas.</p>
                 </div>
                 <div class="image-container">
-                    <img src="{% static 'img/persona3.jpg' %}" alt="Person 3">
+                    <img src="/static/img/persona3.jpg" alt="">
+                    <!--<img src="{% static 'img/persona3.jpg' %}" alt="Person 3">-->
                 </div>
             </div>
     
@@ -135,7 +135,8 @@
                     <p>Guiándote en el proceso de toma de decisiones financieras inteligentes.</p>
                 </div>
                 <div class="image-container">
-                    <img src="{% static 'img/persona4.jpg' %}" alt="Person 4">
+                    <img src="/static/img/persona4.jpg" alt="">
+                    <!--<img src="{% static 'img/persona4.jpg' %}" alt="Person 4">-->
                 </div>
             </div>
         </div>
