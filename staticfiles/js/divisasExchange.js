@@ -5,7 +5,7 @@ document.getElementById('currency-form').addEventListener('submit', function(eve
     const formData = new FormData(form);  // Captura los datos del formulario
     const csrfToken = formData.get('csrfmiddlewaretoken');
 
-    fetch('/currency-conversion/', {
+    fetch('/actualizar/currency-conversion/', {
         method: 'POST',
         headers: {
             'X-CSRFToken': csrfToken,

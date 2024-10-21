@@ -42,38 +42,42 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from .forms import CurrencyForm
 
-def currency_conversion(request):
-    if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-        form = CurrencyForm(request.POST)
-        if form.is_valid():
-            amount = form.cleaned_data['amount']
-            local_currency = form.cleaned_data['local_currency'].upper()
-            api_key = 'a97c09ef8be42bcbdc87dc16'  # Inserta tu clave de API
-            url = f"https://api.exchangerate-api.com/v4/latest/{local_currency}"
-            
-            try:
-                response = requests.get(url)
-                if response.status_code == 200:
-                    rates = response.json().get('rates', {})
-                    result = {
-                        'USD': amount * rates.get('USD', 1),
-                        'EUR': amount * rates.get('EUR', 1),
-                        'GBP': amount * rates.get('GBP', 1),
-                        'JPY': amount * rates.get('JPY', 1)
-                    }
-                    return JsonResponse({'success': True, 'result': result})
-                else:
-                    print(f"Error de la API, código de estado: {response.status_code}")
-                    return JsonResponse({'success': False, 'error': 'Error al obtener datos de la API'})
-            except Exception as e:
-                print(f"Excepción al llamar a la API: {e}")
-                return JsonResponse({'success': False, 'error': 'Error inesperado en la solicitud a la API'})
-        else:
-            print(f"Formulario inválido: {form.errors}")
-            return JsonResponse({'success': False, 'error': 'Formulario no válido'})
+import requests
+from django.http import JsonResponse
+from django.shortcuts import render
+from .forms import CurrencyForm
 
-    form = CurrencyForm()
-    return render(request, 'finanzas/dashboard.html', {'form': form})
+def currency_conversion(request):
+    # Usar 1 USD para la conversión
+    amount = 1  # Comparar con 1 USD
+    local_currency = 'USD'  # Establecemos la moneda base como el dólar
+    api_key = 'a97c09ef8be42bcbdc87dc16'  # Inserta tu clave de API
+    url = f"https://api.exchangerate-api.com/v4/latest/{local_currency}"
+
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            rates = response.json().get('rates', {})
+            
+            # Verificación del valor CLP en la API
+            clp_rate = rates.get('CLP', None)
+            if clp_rate is None:
+                print("No se encontró el tipo de cambio para CLP en la API")
+
+            result = {
+                'USD': round(amount * rates.get('USD', 1), 2),
+                'EUR': round(amount * rates.get('EUR', 1), 2),
+                'GBP': round(amount * rates.get('GBP', 1), 2),
+                'JPY': round(amount * rates.get('JPY', 1), 2),
+                'CLP': round(amount * rates.get('CLP', 1), 2)
+            }
+            return JsonResponse({'success': True, 'result': result})
+        else:
+            return JsonResponse({'success': False, 'error': 'Error al obtener datos de la API'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': 'Error inesperado en la solicitud a la API'})
+
+
 
 def add_transaction(request):
     if request.method == 'POST':

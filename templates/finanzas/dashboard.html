@@ -93,20 +93,19 @@
                     </table>
                 </div>
             </div>
-
-            <!-- Divisas a CLP (API) -->
+            
+            <form id="csrf-token-form" style="display: none;">
+                {% csrf_token %}
+            </form>
+            
             <div class="card medium-card">
                 <h2>Divisas a CLP (API)</h2>
-                <form id="currency-form" method="POST">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit">Convertir</button>
-                </form>
-                
                 <div id="conversion-results">
-                    <!-- Los resultados de la conversión aparecerán aquí -->
+                    <!-- Los resultados de la conversión aparecerán aquí automáticamente -->
                 </div>
             </div>
+            
+                      
         </div>
     </div>
 

@@ -1,17 +1,11 @@
-document.getElementById('currency-form').addEventListener('submit', function(event) {
-    event.preventDefault();  // Evita que se recargue la página
-
-    const form = event.target;
-    const formData = new FormData(form);  // Captura los datos del formulario
-    const csrfToken = formData.get('csrfmiddlewaretoken');
-
-    fetch('/currency-conversion/', {
+document.addEventListener('DOMContentLoaded', function() {
+    // Solicitud automática para obtener las tasas de divisas cuando se carga la página
+    fetch('/actualizar/currency-conversion/', {
         method: 'POST',
         headers: {
-            'X-CSRFToken': csrfToken,
-            'X-Requested-With': 'XMLHttpRequest'  // Indica que es una solicitud AJAX
-        },
-        body: formData
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+            'X-Requested-With': 'XMLHttpRequest'
+        }
     })
     .then(response => response.json())
     .then(data => {
@@ -19,10 +13,11 @@ document.getElementById('currency-form').addEventListener('submit', function(eve
         if (data.success) {
             resultDiv.innerHTML = `
                 <ul>
-                    <li>USD: ${data.result.USD}</li>
-                    <li>EUR: ${data.result.EUR}</li>
-                    <li>GBP: ${data.result.GBP}</li>
-                    <li>JPY: ${data.result.JPY}</li>
+                    <li><strong>USD:</strong> ${data.result.USD}</li>
+                    <li><strong>EUR:</strong> ${data.result.EUR}</li>
+                    <li><strong>GBP:</strong> ${data.result.GBP}</li>
+                    <li><strong>JPY:</strong> ${data.result.JPY}</li>
+                    <li><strong>CLP:</strong> ${data.result.CLP}</li>
                 </ul>
             `;
         } else {
