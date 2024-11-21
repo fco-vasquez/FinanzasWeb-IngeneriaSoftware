@@ -59,24 +59,26 @@ def currency_conversion(request):
         if response.status_code == 200:
             rates = response.json().get('rates', {})
             
-            # Verificación del valor CLP en la API
-            clp_rate = rates.get('CLP', None)
-            if clp_rate is None:
-                print("No se encontró el tipo de cambio para CLP en la API")
-
+            # Construir el resultado incluyendo más divisas
             result = {
                 'USD': round(amount * rates.get('USD', 1), 2),
                 'EUR': round(amount * rates.get('EUR', 1), 2),
                 'GBP': round(amount * rates.get('GBP', 1), 2),
                 'JPY': round(amount * rates.get('JPY', 1), 2),
-                'CLP': round(amount * rates.get('CLP', 1), 2)
+                'AUD': round(amount * rates.get('AUD', 1), 2),  # Dólar australiano
+                'CAD': round(amount * rates.get('CAD', 1), 2),  # Dólar canadiense
+                'CNY': round(amount * rates.get('CNY', 1), 2),  # Yuan chino
+                'BRL': round(amount * rates.get('BRL', 1), 2),  # Real brasileño
+                'MXN': round(amount * rates.get('MXN', 1), 2),  # Peso mexicano
+                'KRW': round(amount * rates.get('KRW', 1), 2),  # Won surcoreano
+                'CLP': round(amount * rates.get('CLP', 1), 2)   # Peso chileno
             }
+
             return JsonResponse({'success': True, 'result': result})
         else:
             return JsonResponse({'success': False, 'error': 'Error al obtener datos de la API'})
     except Exception as e:
         return JsonResponse({'success': False, 'error': 'Error inesperado en la solicitud a la API'})
-
 
 
 def add_transaction(request):
