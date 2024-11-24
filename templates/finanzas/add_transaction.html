@@ -1,13 +1,44 @@
-<!-- templates/finanzas/add_transaction.html -->
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Guardar</button>
-</form>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 
-<!-- Lista de transacciones existentes -->
-<ul>
-    {% for transaction in transactions %}
-        <li>{{ transaction.date }} - {{ transaction.type }}: ${{ transaction.amount }}</li>
-    {% endfor %}
-</ul>
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+
+
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Finanzas Web</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="add/">Añadir Detalles</a></li>
+                <li><a href="#">Inversiones</a></li>
+                <li><a href="/actualizar/">Perfil</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!-- templates/finanzas/add_transaction.html -->
+    <div class="container">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Guardar</button>
+        </form>
+
+        <!-- Lista de transacciones existentes -->
+        <ul>
+            {% for transaction in transactions %}
+                <li>{{ transaction.date }} - {{ transaction.type }}: ${{ transaction.amount }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

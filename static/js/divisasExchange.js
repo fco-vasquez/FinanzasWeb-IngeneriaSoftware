@@ -17,6 +17,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     <li><strong>EUR:</strong> ${data.result.EUR}</li>
                     <li><strong>GBP:</strong> ${data.result.GBP}</li>
                     <li><strong>JPY:</strong> ${data.result.JPY}</li>
+                    <li><strong>AUD:</strong> ${data.result.AUD}</li>
+                    <li><strong>CAD:</strong> ${data.result.CAD}</li>
+                    <li><strong>CNY:</strong> ${data.result.CNY}</li>
+                    <li><strong>BRL:</strong> ${data.result.BRL}</li>
+                    <li><strong>MXN:</strong> ${data.result.MXN}</li>
+                    <li><strong>KRW:</strong> ${data.result.KRW}</li>
                     <li><strong>CLP:</strong> ${data.result.CLP}</li>
                 </ul>
             `;

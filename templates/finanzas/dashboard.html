@@ -8,112 +8,170 @@
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+    <style>
+        /* Estilos para la sección de conceptos relacionados */
+.concepts-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.concepts-container h4 {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.concept-card {
+    background-color: white;
+    margin-bottom: 15px;
+    padding: 15px 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.concept-card h5 {
+    margin: 0 0 10px 0;
+    font-size: 1.2rem;
+    color: #34495e;
+}
+
+.concept-card p {
+    font-size: 1rem;
+    color: #7f8c8d;
+    line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+    .concepts-container {
+        max-height: 300px;
+    }
+}
+
+    </style>
 </head>
 <body>
 
-    <header>
-        <nav>
-            <div class="logo">
-                <h1>Finanzas Web</h1>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#">Inicio</a></li>
-                <li><a href="add/">Añadir Detalles</a></li>
-                <li><a href="#">Inversiones</a></li>
-                <li><a href="/actualizar/">Perfil</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <div class="dashboard-container">
-        <!-- Estadísticas principales -->
-        <div class="top-stats">
-            <div class="stat-card">
-                <h3>TODAY'S MONEY</h3>
-                <p>$53,000</p>
-                <span>+55% since yesterday</span>
-            </div>
-            <div class="stat-card">
-                <h3>SALES</h3>
-                <p>$103,430</p>
-                <span>+5% since last month</span>
-            </div>
+<header>
+    <nav>
+        <div class="logo">
+            <h1>Finanzas Web</h1>
         </div>
+        <ul class="nav-links">
+            <li><a href="#">Inicio</a></li>
+            <li><a href="add/">Añadir Detalles</a></li>
+            <li><a href="#">Inversiones</a></li>
+            <li><a href="/actualizar/">Perfil</a></li>
+        </ul>
+    </nav>
+</header>
 
-        
-        <div class="content-container">
-            <div class="info-box">
-                <div class="left-box">
-                    <h3>Ingresos vs Egresos (Función)</h3>
-                    <!-- Aquí va el gráfico -->
-                    <canvas id="ingresosEgresosChart"></canvas>
-                    
-                    <!-- Elementos ocultos con los datos de ingresos y egresos -->
-                    <div id="ingresos-data" style="display: none;">{{ total_ingresos|safe }}</div>
-                    <div id="egresos-data" style="display: none;">{{ total_egresos|safe }}</div>
-                </div>
-                
-                <div class="right-box">
-                    <div class="image-container">
-                        <p>Contenido a la derecha del gráfico</p>
-                    </div>
-                </div>
-            </div>
+<div class="dashboard-container">
+    <!-- Estadísticas principales -->
+    <div class="top-stats">
+        <div class="stat-card">
+            <h3>TODAY'S MONEY</h3>
+            <p>$53,000</p>
+            <span>+55% since yesterday</span>
         </div>
-
-        <!-- Datos BCCH (API) y Divisas -->
-        <div class="grid-row-horizontal">
-            <!-- Datos BCCH (API) -->
-            <div class="card medium-card">
-                <h2>Datos BCCH (API)</h2>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Fecha</th>
-                                <th>M1 (Miles de millones CLP)</th>
-                                <th>FM2 (Fondos Mutuos)</th>
-                                <th>FBKF (% PIB)</th>
-                                <th>FBK (% PIB)</th>
-                                <th>FBK Anual (% PIB)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for dato in datos_bcch %}
-                            <tr>
-                                <td>{{ dato.index }}</td> <!-- Cambiado para mostrar correctamente la fecha -->
-                                <td>{{ dato.m1 }}</td>
-                                <td>{{ dato.fm2 }}</td>
-                                <td>{{ dato.fbkf_real }}</td>
-                                <td>{{ dato.fbkf_trimestral }}</td>
-                                <td>{{ dato.fbkf_anual }}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            
-            <form id="csrf-token-form" style="display: none;">
-                {% csrf_token %}
-            </form>
-            
-            <div class="card medium-card">
-                <h2>Divisas Dolar (API)</h2>
-                <div id="conversion-results">
-                    <!-- Los resultados de la conversión aparecerán aquí automáticamente -->
-                </div>
-            </div>
-            
-                      
+        <div class="stat-card">
+            <h3>SALES</h3>
+            <p>$103,430</p>
+            <span>+5% since last month</span>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="{% static 'js/divisasExchange.js' %}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="{% static 'js/dashboardChart.js' %}"></script>
+    <!-- Gráfico e información -->
+    <div class="content-container">
+        <div class="info-box">
+            <div class="left-box">
+                <h3>Ingresos vs Egresos (Función)</h3>
+                <canvas id="ingresosEgresosChart"></canvas>
+                <div id="ingresos-data" style="display: none;">{{ total_ingresos|safe }}</div>
+                <div id="egresos-data" style="display: none;">{{ total_egresos|safe }}</div>
+            </div>
+            <div class="right-box">
+                <div class="concepts-container">
+                    <h4>Conceptos Relacionados</h4>
+                    <div class="concept-card">
+                        <h5>M1 (Miles de millones CLP)</h5>
+                        <p>M1 incluye el dinero en circulación y depósitos a la vista, útil para evaluar la liquidez.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h5>FM2 (Fondos Mutuos)</h5>
+                        <p>Los fondos mutuos son una opción de inversión colectiva que permite diversificar el riesgo.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h5>FBKF (% PIB)</h5>
+                        <p>Proporción del PIB destinada a inversión en capital fijo, esencial para entender el crecimiento económico.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h5>FBK (% PIB)</h5>
+                        <p>Refleja cambios en la inversión fija en relación con la economía a precios corrientes.</p>
+                    </div>
+                    <div class="concept-card">
+                        <h5>FBK Anual (% PIB)</h5>
+                        <p>Refleja la inversión en activos fijos de un año a otro como proporción del PIB.</p>
+                    </div>
+                </div>
+            </div>                        
+        </div>
+    </div>
+
+    <!-- Datos BCCH (API) y Divisas -->
+    <div class="grid-row-horizontal">
+        <!-- Datos BCCH (API) -->
+        <div class="card medium-card">
+            <h2>Datos BCCH (API)</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>M1 (Miles de millones CLP)</th>
+                            <th>FM2 (Fondos Mutuos)</th>
+                            <th>FBKF (% PIB)</th>
+                            <th>FBK (% PIB)</th>
+                            <th>FBK Anual (% PIB)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for dato in datos_bcch %}
+                        <tr>
+                            <td>{{ dato.index }}</td>
+                            <td>{{ dato.m1 }}</td>
+                            <td>{{ dato.fm2 }}</td>
+                            <td>{{ dato.fbkf_real }}</td>
+                            <td>{{ dato.fbkf_trimestral }}</td>
+                            <td>{{ dato.fbkf_anual }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <form id="csrf-token-form" style="display: none;">
+            {% csrf_token %}
+        </form>
+
+        <div class="card medium-card">
+            <h2>Divisas a Dolar (API)</h2>
+            <div id="conversion-results">
+                <!-- Los resultados de la conversión aparecerán aquí automáticamente -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static 'js/divisasExchange.js' %}"></script>
+<script src="{% static 'js/dashboardChart.js' %}"></script>
 
 </body>
 </html>
-

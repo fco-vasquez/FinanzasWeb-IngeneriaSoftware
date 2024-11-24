@@ -264,3 +264,46 @@ ul li {
         overflow-x: scroll;
     }
 }
+/* Estilos para la sección de conceptos relacionados */
+.concepts-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.concepts-container h4 {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.concept-card {
+    background-color: white;
+    margin-bottom: 15px;
+    padding: 15px 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.concept-card h5 {
+    margin: 0 0 10px 0;
+    font-size: 1.2rem;
+    color: #34495e;
+}
+
+.concept-card p {
+    font-size: 1rem;
+    color: #7f8c8d;
+    line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+    .concepts-container {
+        max-height: 300px;
+    }
+}
